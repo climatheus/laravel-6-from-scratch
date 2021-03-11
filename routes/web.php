@@ -11,16 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/about', function () {
-    return view('about', [
-        'articles' => App\Article::take(3)->latest()->get()
-    ]);
-});
-
 Route::get('/articles', 'ArticlesController@index')->name('articles.index');
 Route::post('/articles', 'ArticlesController@store')->name('articles.store');
 Route::get('/articles/create', 'ArticlesController@create')->name('articles.create');

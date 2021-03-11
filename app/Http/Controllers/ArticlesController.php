@@ -27,6 +27,7 @@ class ArticlesController extends Controller
     public function store()
     {
         Article::create($this->validated());
+
         return redirect('/articles');
     }
 
@@ -38,12 +39,14 @@ class ArticlesController extends Controller
     public function update(Article $article)
     {
         $article->update($this->validated());
-        return redirect('/articles/' . $article->id);
+
+        return redirect($article->path());
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
+
         return redirect(route('articles.index'));
     }
 

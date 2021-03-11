@@ -15,4 +15,9 @@ class Article extends Model
     //      **/
     //     return 'field_name'; // Article::where('slug', $article)->first();
     // }
+
+    public function path()
+    {
+        return route('articles.show', $this);
+    }
 }
