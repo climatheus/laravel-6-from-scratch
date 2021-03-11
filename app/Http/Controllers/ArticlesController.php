@@ -9,8 +9,6 @@ class ArticlesController extends Controller
 {
     public function index()
     {
-        // render a list of a resource
-
         $articles = Article::latest()->get();
 
         return view('articles.index', [
@@ -18,15 +16,9 @@ class ArticlesController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Article $article)
     {
-        // show a single resource
-
-        $article = Article::find($id);
-
-        return view('articles.show', [
-            'article' => $article
-        ]);
+        return view('articles.show', ['article' => $article]);
     }
 
     public function create()
@@ -51,24 +43,18 @@ class ArticlesController extends Controller
         return redirect('/articles');
     }
 
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = Article::find($id);
-
-        return view('articles.edit', [
-            'article' => $article
-        ]);
+        return view('articles.edit', ['article' => $article]);
     }
 
-    public function update($id)
+    public function update(Article $article)
     {
         request()->validate([
             'title' => 'required',
             'excerpt' => 'required',
             'body' => 'required',
         ]);
-
-        $article = Article::find($id);
 
         $article->title = request('title');
         $article->excerpt = request('excerpt');
