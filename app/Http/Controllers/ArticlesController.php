@@ -11,9 +11,7 @@ class ArticlesController extends Controller
     {
         $articles = Article::latest()->get();
 
-        return view('articles.index', [
-            'articles' => $articles
-        ]);
+        return view('articles.index', ['articles' => $articles]);
     }
 
     public function show(Article $article)
@@ -28,18 +26,7 @@ class ArticlesController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'title' => 'required',
-            'excerpt' => 'required',
-            'body' => 'required',
-        ]);
-
-        $article = new Article();
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-        $article->save();
-
+        Article::create($this->validated());
         return redirect('/articles');
     }
 
@@ -50,22 +37,22 @@ class ArticlesController extends Controller
 
     public function update(Article $article)
     {
-        request()->validate([
+        $article->update($this->validated());
+        return redirect('/articles/' . $article->id);
+    }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
+        return redirect(route('articles.index'));
+    }
+
+    public function validated()
+    {
+        return request()->validate([
             'title' => 'required',
             'excerpt' => 'required',
             'body' => 'required',
         ]);
-
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-        $article->save();
-
-        return redirect('/articles/' . $article->id);
-    }
-
-    public function destroy()
-    {
-        // delete a resource
     }
 }
