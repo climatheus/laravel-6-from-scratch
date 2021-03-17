@@ -42,10 +42,4 @@ class User extends Authenticatable
          // select * from articles where user_id = ?
         return $this->hasMany(Article::class);
     }
-
-    public function projects()
-    {
-        // select * from projects where user_id = ?
-        return $this->hasMany(Project::class);
-    }
 }
