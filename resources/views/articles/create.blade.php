@@ -71,6 +71,26 @@
                     </div>
                 </div>
 
+                <div class="field">
+                    <label for="tag" class="label">Tags</label>
+
+                    <div class="select is-multiple control">
+                        <select name="tags[]" multiple>
+                            @forelse ($tags as $tag)
+                                <option value="{{ $tag->id }}">
+                                    {{ $tag->name }}
+                                </option>
+                            @empty
+                                <option value="0">No tags available</option>
+                            @endforelse
+                        </select>
+
+                        @error('tag')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="control">
                     <button class="button is-link">Submit</button>
                 </div>
